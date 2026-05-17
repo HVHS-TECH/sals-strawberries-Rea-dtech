@@ -1,34 +1,30 @@
-
 var GLOBAL_user;
 console.log("Running Sal's Strawberries")
 
 function writeForm(){
-    // Get the form data
     const favoriteFruit = document.getElementById("favoriteFruit").value;
 }
 
 
-
-
-//listener for login state
+// listener for login state
 function fb_login() {
   authenticationListener = firebase.auth().onAuthStateChanged(fb_handleLogin);
 }
 
-//run when login state of user changes
+
+// run when login state changes
 function fb_handleLogin(_user) {
   if (_user) {
     console.log("User is logged in")
-    GLOBAL_user = _user; //save the object to a global varible
-
+    GLOBAL_user = _user;
   } else {
-
     console.log("User is not logged in - starting the popup process")
     fb_popupLogin();
   }
 }
 
-// run the google login prompt
+
+// Google login popup
 function fb_popupLogin() {
   var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -38,17 +34,17 @@ function fb_popupLogin() {
   });
 }
 
+
 function hello() {
   if (GLOBAL_user) {
     console.log(GLOBAL_user.displayName);
-
-
   } else {
     console.log("log in first");
   }
 }
 
 
+// SAVE DATA (UID CHANGE HERE)
 function submit() {
 
   if (!GLOBAL_user) {
@@ -56,19 +52,22 @@ function submit() {
     return;
   }
 
+  let uid = GLOBAL_user.uid; // ✅ changed
   let username = GLOBAL_user.displayName;
-   // Get value from input field
+
   let servings = document.getElementById("fruitQuantity").value;
   let favFood = document.getElementById("favoriteFruit").value;
-  let chosenName = document.getElementById("name").value
+  let chosenName = document.getElementById("name").value;
 
   console.log(username + "'s favorite food is " + favFood);
 
-  firebase.database().ref('/users/' + username).set({
+  firebase.database().ref('/users/' + uid).set({  // ✅ changed
+
     username: username,
     chosenname: chosenName,
     favoriteFood: favFood,
     servings: servings
+
   })
   .then(() => {
     console.log("Wrote favorite food and servings to database");
@@ -79,33 +78,49 @@ function submit() {
 
 }
 
+
+// READ DATA (UID CHANGE HERE)
 function email() {
+
   if (GLOBAL_user) {
-    console.log("email")
+
+    console.log("email");
+
     let div = document.getElementById("email");
-    let username = GLOBAL_user.displayName;
-    firebase.database().ref('/users/' + username)
+
+    let uid = GLOBAL_user.uid; // ✅ changed
+
+    firebase.database().ref('/users/' + uid) // ✅ changed
       .once('value')
       .then((snapshot) => {
+
         let user = snapshot.val();
+
         if (user) {
-          div.innerHTML = "to: " + user.chosenname + " your fav food is " + user.favoriteFood + " and you enjoy having " + user.servings + " per week."
+
+          div.innerHTML =
+            "to: " + user.chosenname +
+            " your fav food is " + user.favoriteFood +
+            " and you enjoy having " + user.servings +
+            " per week.";
+
         } else {
           div.innerHTML = "User data not found.";
         }
+
       })
       .catch((error) => {
         console.error("Database read failed:", error);
       });
+
   } else {
     alert("error user is not logged in")
   }
 }
 
-  function  popular(){
-    console.log("displaying all fav fruits")
-    firebase.database().ref('/')
-    
-  }
 
-
+// still works (no UID needed here yet)
+function popular(){
+  console.log("displaying all fav fruits")
+  firebase.database().ref('/')
+}
