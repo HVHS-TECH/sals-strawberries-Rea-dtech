@@ -19,7 +19,7 @@ function fb_login() {
 function fb_handleLogin(_user) {
   if (_user) {
     console.log("User is logged in")
-    GlOBAL_user = _user; //save the object to a global varible
+    GLOBAL_user = _user; //save the object to a global varible
 
   } else {
 
@@ -49,7 +49,7 @@ function hello() {
 }
 
 
-function favfood() {
+function submit() {
 
   if (!GLOBAL_user) {
     alert("Please log in first");
@@ -57,36 +57,55 @@ function favfood() {
   }
 
   let username = GLOBAL_user.displayName;
-
-  // Get value from input field
+   // Get value from input field
+  let servings = document.getElementById("fruitQuantity").value;
   let favFood = document.getElementById("favoriteFruit").value;
+  let chosenName = document.getElementById("name").value
 
   console.log(username + "'s favorite food is " + favFood);
 
-  firebase.database().ref('/users/favfood/' + username).set(favFood)
-    .then(() => {
-      console.log("wrote to database");
-    })
-    .catch((error) => {
-      console.error("Database write failed:", error);
-    });
+  firebase.database().ref('/users/' + username).set({
+    username: username,
+    chosenname: chosenName,
+    favoriteFood: favFood,
+    servings: servings
+  })
+  .then(() => {
+    console.log("Wrote favorite food and servings to database");
+  })
+  .catch((error) => {
+    console.error("Database write failed:", error);
+  });
+
 }
 
-  function email() {
-    if(GLOBAL_user) {
+function email() {
+  if (GLOBAL_user) {
     console.log("email")
-    let div = document.getElementById("myDiv");
-    let emailcontent = document.getElementById("emailcontent")
-    div.innerHTML = "to: " + GLOBAL_user.email;
-    emailcontent.innerHTML = "Welcome to Reas website"
-
-  }else {
+    let div = document.getElementById("email");
+    let username = GLOBAL_user.displayName;
+    firebase.database().ref('/users/' + username)
+      .once('value')
+      .then((snapshot) => {
+        let user = snapshot.val();
+        if (user) {
+          div.innerHTML = "to: " + user.chosenname + " your fav food is " + user.favoriteFood + " and you enjoy having " + user.servings + " per week."
+        } else {
+          div.innerHTML = "User data not found.";
+        }
+      })
+      .catch((error) => {
+        console.error("Database read failed:", error);
+      });
+  } else {
     alert("error user is not logged in")
   }
-  }
+}
 
   function  popular(){
     console.log("displaying all fav fruits")
     firebase.database().ref('/')
     
   }
+
+
