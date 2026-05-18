@@ -52,7 +52,7 @@ function submit() {
     return;
   }
 
-  let uid = GLOBAL_user.uid; // ✅ changed
+  let uid = GLOBAL_user.uid; 
   let username = GLOBAL_user.displayName;
 
   let servings = document.getElementById("fruitQuantity").value;
@@ -61,8 +61,7 @@ function submit() {
 
   console.log(username + "'s favorite food is " + favFood);
 
-  firebase.database().ref('/users/' + uid).set({  // ✅ changed
-
+  firebase.database().ref('/users/' + uid).set({  
     username: username,
     chosenname: chosenName,
     favoriteFood: favFood,
@@ -70,7 +69,7 @@ function submit() {
 
   })
   .then(() => {
-    console.log("Wrote favorite food and servings to database");
+    console.log("Wrote the users chosen name and favorite food and servings to database");
   })
   .catch((error) => {
     console.error("Database write failed:", error);
@@ -79,7 +78,6 @@ function submit() {
 }
 
 
-// READ DATA (UID CHANGE HERE)
 function email() {
 
   if (GLOBAL_user) {
@@ -88,9 +86,9 @@ function email() {
 
     let div = document.getElementById("email");
 
-    let uid = GLOBAL_user.uid; // ✅ changed
+    let uid = GLOBAL_user.uid; 
 
-    firebase.database().ref('/users/' + uid) // ✅ changed
+    firebase.database().ref('/users/' + uid) 
       .once('value')
       .then((snapshot) => {
 
