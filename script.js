@@ -96,14 +96,14 @@ function email() {
 
         if (user) {
 
-          div.innerHTML =
+          div.textContent =
             "to: " + user.chosenname +
             " your fav food is " + user.favoriteFood +
             " and you enjoy having " + user.servings +
             " per week.";
 
         } else {
-          div.innerHTML = "User data not found.";
+          div.textContent = "User data not found.";
         }
 
       })
@@ -120,5 +120,7 @@ function email() {
 // still works (no UID needed here yet)
 function popular(){
   console.log("displaying all fav fruits")
-  firebase.database().ref('/')
+  firebase.database().ref('/users')
 }
+
+
