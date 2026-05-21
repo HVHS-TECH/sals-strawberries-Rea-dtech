@@ -53,7 +53,53 @@ button:hover {
   background-color: #e64a74;
 }
 
-#statusMessage {
-  margin-top: 1rem;
-  font-style: italic;
+body {
+  font-family: Arial, sans-serif;
+  background: #ffe6ee;
+}
+
+.container {
+  width: 500px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Header styling */
+.header {
+  text-align: center;
+}
+
+.header h1 {
+  color: #ff6b9a;
+  margin-bottom: 5px;
+}
+
+.header h2 {
+  font-size: 14px;
+  color: #cc0033;
+  margin-top: 0;
+}
+
+/* login row */
+.login-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: flex-start;
+}
+
+/* profile image */
+#profilephoto {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid #ff6b9a;
+}
+
+#profilephoto {
+  position: relative;
+  top: 3px;
 }
