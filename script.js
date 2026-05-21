@@ -1,8 +1,8 @@
 var GLOBAL_user;
 console.log("Running Sal's Strawberries")
 
-function writeForm(){
-    const favoriteFruit = document.getElementById("favoriteFruit").value;
+function writeForm() {
+  const favoriteFruit = document.getElementById("favoriteFruit").value;
 }
 
 
@@ -52,7 +52,7 @@ function submit() {
     return;
   }
 
-  let uid = GLOBAL_user.uid; 
+  let uid = GLOBAL_user.uid;
   let username = GLOBAL_user.displayName;
 
   let servings = document.getElementById("fruitQuantity").value;
@@ -61,19 +61,21 @@ function submit() {
 
   console.log(username + "'s favorite food is " + favFood);
 
-  firebase.database().ref('/users/' + uid).set({  
+  firebase.database().ref('/users/' + uid).set({
     username: username,
     chosenname: chosenName,
     favoriteFood: favFood,
     servings: servings
-
   })
-  .then(() => {
-    console.log("Wrote the users chosen name and favorite food and servings to database");
-  })
-  .catch((error) => {
-    console.error("Database write failed:", error);
-  });
+    .then(() => {
+      return firebase.database().ref('/popularFruits/' + uid).set(favFood);
+    })
+    .then(() => {
+      console.log("Wrote the users chosen name and favorite food and servings to database");
+    })
+    .catch((error) => {
+      console.error("Database write failed:", error);
+    });
 
 }
 
@@ -86,9 +88,9 @@ function email() {
 
     let div = document.getElementById("email");
 
-    let uid = GLOBAL_user.uid; 
+    let uid = GLOBAL_user.uid;
 
-    firebase.database().ref('/users/' + uid) 
+    firebase.database().ref('/users/' + uid)
       .once('value')
       .then((snapshot) => {
 
@@ -117,10 +119,57 @@ function email() {
 }
 
 
-// still works (no UID needed here yet)
-function popular(){
-  console.log("displaying all fav fruits")
-  firebase.database().ref('/users')
+
+function popular() {
+  console.log("displaying all fav fruits");
+
+  let div = document.getElementById("popular");
+
+  firebase.database().ref('/popularFruits/')
+    .once('value')
+    .then(function (snapshot) {
+
+      let users = snapshot.val();
+
+      if (!users) {
+        div.textContent = "No users found.";
+        return;
+      }
+
+      let output = "";
+
+      let keys = Object.keys(users);
+
+      for (let i = 0; i < keys.length; i++) {
+
+        let fruit = users[keys[i]];
+
+        if (fruit) {
+          output += fruit + "<br>";
+        }
+      }
+
+      div.innerHTML = output;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
 }
 
 
+ setInterval(function () {
+
+  if (GLOBAL_user) {
+      let profile = GLOBAL_user.photoURL;
+      let photo = document.getElementById("profilephoto")
+      photo.src = GLOBAL_user.photoURL;
+      photo.innerHTML = profile;
+      console.log(profile);
+
+  } else {
+
+    console.log("log in first");
+
+  }
+
+}, 5000);
