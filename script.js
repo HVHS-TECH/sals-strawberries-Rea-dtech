@@ -44,7 +44,6 @@ function hello() {
 }
 
 
-// SAVE DATA (UID CHANGE HERE)
 function submit() {
 
   if (!GLOBAL_user) {
@@ -56,19 +55,25 @@ function submit() {
   let username = GLOBAL_user.displayName;
 
   let servings = document.getElementById("fruitQuantity").value;
-  let favFood = document.getElementById("favoriteFruit").value;
+  let favFood1 = document.getElementById("favoriteFruit1").value;
+  let favFood2 = document.getElementById("favoriteFruit2").value;
+  let favFood3 = document.getElementById("favoriteFruit3").value;
   let chosenName = document.getElementById("name").value;
 
-  console.log(username + "'s favorite food is " + favFood);
-
+  console.log(username + "'s favorite food is " + favFood1);
+  console.log(username + "'s favorite food is " + favFood2);
+  console.log(username + "'s favorite food is " + favFood3);
   firebase.database().ref('/users/' + uid).set({
     username: username,
     chosenname: chosenName,
-    favoriteFood: favFood,
+    favoriteFood1: favFood1,
+    favoriteFood2: favFood2,
+     favoriteFood3: favFood3,
     servings: servings
   })
     .then(() => {
-      return firebase.database().ref('/popularFruits/' + uid).set(favFood);
+      return firebase.database().ref('/popularFruits/' + uid)
+      .set(favFood1);
     })
     .then(() => {
       console.log("Wrote the users chosen name and favorite food and servings to database");
