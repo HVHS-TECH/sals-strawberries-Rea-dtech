@@ -1,0 +1,39 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid",
+        ".validate": "newData.hasChildren(['username', 'chosenname', 'favoriteFood1', 'favoriteFood2', 'favoriteFood3', 'servings'])",
+        "username": {
+          ".validate": "newData.isString() && newData.val().length <= 100 && !newData.val().matches(/[<>\"'&;(){}\\[\\]]/)"
+        },
+        "chosenname": {
+          ".validate": "newData.isString() && newData.val().length >= 1 && newData.val().length <= 50 && !newData.val().matches(/[<>\"'&;(){}\\[\\]]/)"
+        },
+        "favoriteFood1": {
+          ".validate": "newData.isString() && newData.val().length <= 50 && !newData.val().matches(/[<>\"'&;(){}\\[\\]]/)"
+        },
+        "favoriteFood2": {
+          ".validate": "newData.isString() && newData.val().length <= 50 && !newData.val().matches(/[<>\"'&;(){}\\[\\]]/)"
+        },
+        "favoriteFood3": {
+          ".validate": "newData.isString() && newData.val().length <= 50 && !newData.val().matches(/[<>\"'&;(){}\\[\\]]/)"
+        },
+        "servings": {
+          ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 100"
+        },
+        "$other": {
+          ".validate": "false"
+        }
+      }
+    },
+    "popularFruits": {
+      ".read": "auth != null",
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid",
+        ".validate": "newData.isString() && newData.val().length <= 50 && !newData.val().matches(/[<>\"'&;(){}\\[\\]]/)"
+      }
+    }
+  }
+}
