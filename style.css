@@ -103,3 +103,117 @@ body {
   position: relative;
   top: 3px;
 }
+
+#allReviews {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 20px;
+
+  margin-top: 25px;
+
+}
+
+
+/* Review cards */
+
+#allReviews div {
+
+  width: 80%;
+
+  max-width: 600px;
+
+  background-color: #fff0f5;
+
+  border: 2px solid #ff6b9a;
+
+  border-radius: 14px;
+
+  padding: 18px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+  text-align: center;
+
+}
+
+
+/* Review usernames */
+
+#allReviews h3 {
+
+  margin-top: 0;
+
+  margin-bottom: 10px;
+
+  color: #cc0033;
+
+  font-size: 22px;
+
+}
+
+
+/* Review text */
+
+#allReviews p {
+
+  margin: 0;
+
+  font-size: 16px;
+
+  color: #444;
+
+  line-height: 1.5;
+
+  word-wrap: break-word;
+
+}
+
+
+/* Reviews heading */
+
+h2 {
+
+  text-align: center;
+
+}
+
+
+/* Review textarea */
+
+textarea {
+
+  width: 100%;
+
+  min-height: 100px;
+
+  padding: 0.7rem;
+
+  margin-top: 0.3rem;
+
+  border: 1px solid #ccc;
+
+  border-radius: 6px;
+
+  resize: vertical;
+
+  font-family: Arial, sans-serif;
+
+}
+
+
+/* Center load reviews button */
+
+button {
+
+  display: block;
+
+  margin-left: auto;
+
+  margin-right: auto;
+
+}
