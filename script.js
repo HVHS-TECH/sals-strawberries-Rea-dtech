@@ -281,7 +281,7 @@ function popular() {
 
         if (fruit) {
 
-          // safe XSS-free rendering
+         
           let p = document.createElement("p");
 
           p.textContent = fruit;

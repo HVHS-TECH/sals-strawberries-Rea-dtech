@@ -9,9 +9,6 @@
 
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Your scripts -->
-  <script src="script.js"></script>
-
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
@@ -19,8 +16,10 @@
   <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
 
   <!-- Firebase setup -->
-  <script src="fb_setup.js"></script>
   <script src="fb_io.js"></script>
+
+  <!-- Your scripts -->
+  <script src="script.js"></script>
 </head>
 
 <body>
@@ -33,6 +32,7 @@
       <img id="profilephoto">
 
     </div>
+    <form>
     <label for="name">Your Name:</label>
     <input type="text" id="name" name="name" maxlength="30" required />
 
@@ -50,8 +50,7 @@
 
     <label for="reviews">leave a review please</label>
     <input type="text" id="reviews" maxlength="300" name="reviews" required />
-
-    <!-- add more fields here -->
+d more fields here -->
     </form>
 
     <button onclick="submit()">Submit</button>
@@ -63,6 +62,7 @@
     <p id="statusMessage"></p>
     <div id="fruits"></div>
   </div>
+    </form>
   <h2>Reviews</h2>
   <div id="allReviews"></div>
 
